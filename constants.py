@@ -9,3 +9,7 @@ TOPIC_TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523
 # Blocks
 BLOCK_START = 150000
 BLOCK_END = 230000
+
+# Mongo
+mongo_password = ""
+mongo_username = ""
