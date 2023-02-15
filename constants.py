@@ -33,3 +33,7 @@ EVENT_DEPOSIT_FINALIZED = '0xb0444523268717a02698be47d0803aa7468c00acbed2f8bd93a
 # Fallback startblocks
 L1_FALLBACK_START_BLOCK = 16516334
 L2_FALLBACK_START_BLOCK = 71216274
+
+# RPC Endpoint Testnet
+URL = "https://starknet-goerli2.infura.io/v3/915563693acc45ca8fb73b9d82a4535c"
+INFURA_ID = ""

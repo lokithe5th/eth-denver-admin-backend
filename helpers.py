@@ -3,39 +3,22 @@ import requests
 import json
 import calendar
 import constants
+import pickle
+#from web3 import Web3, HTTPProvider
+from zksync2.module.module_builder import ZkSyncBuilder
+import asyncio
 
-# Teches the latest blocks target chain for L1 and L2
-def getBlocks(api: str, key: str) -> int:
-    date = datetime.datetime.utcnow()
-    utcTime = calendar.timegm(date.utctimetuple())
-    urlParams = {
-        'module': 'block',
-        'action': 'getblocknobytime',
-        'timestamp': utcTime,
-        'closest': 'before',
-        'apikey': key
-    }
+# instantiate a web3 remote provider
+w3 = ZkSyncBuilder.build("https://starknet-mainnet.infura.io/v3/915563693acc45ca8fb73b9d82a4535c")
 
-    # From time to time there are bad responses from the Etherscan API
-    try:
-        response = requests.get(api, params=urlParams)
-        responseParsed = json.loads(response.content)
-        assert(responseParsed['message'] == 'OK')
+async def getChain():
+    chainId = await w3.zksync.zks_get_bridge_contracts
+    print(chainId)
 
-    except:
-        print('Error in request or response from Etherscan API. Please check URL params or API service status. Fallback block height used!')
-        if (api == constants.ETHERSCAN_L1):
-            return constants.L1_FALLBACK_START_BLOCK
-        else:
-            return constants.L2_FALLBACK_START_BLOCK
+async def main():
+    await getChain()
 
-    else:
-        return int(responseParsed['result'])
+main()
 
-# Simple helper function to take care of the API calls to Etherscan
-def getTransactions(api: str, params: object) -> list:
-    response = requests.get(api, params=params)
-    responseParsed = json.loads(response.content)
-    return responseParsed['result']
-
-
+if __name__ == "__main__":
+    asyncio.run(main())
