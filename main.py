@@ -19,7 +19,6 @@ transferTopic = zksync_web3.keccak(text = 'transfer(address,uint256)')
 print(transferTopic.hex())
 
 chain_id = zksync_web3.zksync.filter(filter_params)
-#signer = PrivateKeyEthSigner(account, chain_id)
 
 logs = chain_id.get_all_entries()
 
